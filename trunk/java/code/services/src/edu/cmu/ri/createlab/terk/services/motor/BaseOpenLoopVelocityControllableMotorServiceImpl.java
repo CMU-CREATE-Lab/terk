@@ -6,9 +6,9 @@ import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public abstract class OpenLoopBaseVelocityControllableMotorServiceImpl extends BaseDeviceControllingService implements OpenLoopVelocityControllableMotorService
+public abstract class BaseOpenLoopVelocityControllableMotorServiceImpl extends BaseDeviceControllingService implements OpenLoopVelocityControllableMotorService
    {
-   public OpenLoopBaseVelocityControllableMotorServiceImpl(final PropertyManager propertyManager, final int deviceCount)
+   public BaseOpenLoopVelocityControllableMotorServiceImpl(final PropertyManager propertyManager, final int deviceCount)
       {
       super(propertyManager, deviceCount);
       }
