@@ -48,7 +48,7 @@ public final class AccelerometerUnitConversionStrategyFreescaleMMA7660FC impleme
    /**
     * Converts the native values in the given {@link AccelerometerState} to Gs.  Native values which are less than
     * {@link #MIN_NATIVE_VALUE} will be mapped to {@link #MIN_G} and native values which are greater than
-    * {@link #MAX_NATIVE_VALUE} will be mapped to {@link #MAX_G}.
+    * {@link #MAX_NATIVE_VALUE} will be mapped to -0.046875 Gs.
     */
    public AccelerometerGs convert(final AccelerometerState accelerometerState)
       {
@@ -63,7 +63,7 @@ public final class AccelerometerUnitConversionStrategyFreescaleMMA7660FC impleme
 
    /**
     * Converts the G values in the given {@link AccelerometerState} to native values.  G values which are less than
-    * {@link #MIN_G} will be mapped to {@link #MAX_NATIVE_VALUE} and G values which are greater than {@link #MAX_G} will
+    * {@link #MIN_G} will be mapped to 32 and G values which are greater than {@link #MAX_G} will
     * be mapped to {@link #MIDPOINT_NATIVE_VALUE}.
     */
    public AccelerometerState convert(final AccelerometerGs accelerometerState)
@@ -85,14 +85,14 @@ public final class AccelerometerUnitConversionStrategyFreescaleMMA7660FC impleme
          return cleanedVal;
          }
 
-      return -cleanedVal + MIDPOINT_NATIVE_VALUE;
+      return cleanedVal - 64;
       }
 
    private static int convertSixBitToNative(final int val)
       {
       if (val < 0)
          {
-         return -val + MIDPOINT_NATIVE_VALUE;
+         return val + 64;
          }
 
       return val;
