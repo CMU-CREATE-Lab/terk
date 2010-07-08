@@ -96,14 +96,4 @@ public final class AccelerometerUnitConversionStrategyMMA7260Q implements Accele
 
       return nativeValue;
       }
-
-   public int getMinimumNativeValue()
-      {
-      return MIN_NATIVE_VALUE;
-      }
-
-   public int getMaximumNativeValue()
-      {
-      return MAX_NATIVE_VALUE;
-      }
    }

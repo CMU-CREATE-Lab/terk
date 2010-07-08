@@ -28,10 +28,4 @@ public interface AccelerometerUnitConversionStrategy extends UnitConversionStrat
 
    /** Converts the given acceleration (in g's) to native units. */
    int convertToNative(final double gValue);
-
-   /** Returns the minimum native value. */
-   int getMinimumNativeValue();
-
-   /** Returns the maximum native value. */
-   int getMaximumNativeValue();
    }
