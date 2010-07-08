@@ -3,6 +3,7 @@ package edu.cmu.ri.createlab.terk.services.accelerometer;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import edu.cmu.ri.createlab.terk.services.accelerometer.unitconversionstrategies.AccelerometerUnitConversionStrategyFreescaleMMA7660FC;
 import edu.cmu.ri.createlab.terk.services.accelerometer.unitconversionstrategies.AccelerometerUnitConversionStrategyMMA7260Q;
 
 /**
@@ -23,6 +24,7 @@ public final class AccelerometerUnitConversionStrategyFinder
       {
       final Map<String, AccelerometerUnitConversionStrategy> strategyMap = new HashMap<String, AccelerometerUnitConversionStrategy>();
       strategyMap.put(AccelerometerUnitConversionStrategyMMA7260Q.DEVICE_ID, AccelerometerUnitConversionStrategyMMA7260Q.getInstance());
+      strategyMap.put(AccelerometerUnitConversionStrategyFreescaleMMA7660FC.DEVICE_ID, AccelerometerUnitConversionStrategyFreescaleMMA7660FC.getInstance());
       STRATEGY_MAP = Collections.unmodifiableMap(strategyMap);
       }
 
