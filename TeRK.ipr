@@ -163,7 +163,10 @@
         <inspection_tool class="MethodOverridesPrivateMethod" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MethodOverridesStaticMethod" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MismatchedArrayReadWrite" enabled="false" level="WARNING" enabled_by_default="false" />
-        <inspection_tool class="MismatchedCollectionQueryUpdate" enabled="false" level="WARNING" enabled_by_default="false" />
+        <inspection_tool class="MismatchedCollectionQueryUpdate" enabled="false" level="WARNING" enabled_by_default="false">
+          <option name="queries" value="copyInto,drainTo,propertyNames,save,store,write" />
+          <option name="updates" value="add,clear,drainTo,insert,load,offer,poll,push,put,remove,replace,retain,set,take" />
+        </inspection_tool>
         <inspection_tool class="MissortedModifiers" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_requireAnnotationsFirst" value="true" />
         </inspection_tool>
@@ -441,6 +444,9 @@
       <module fileurl="file://$PROJECT_DIR$//TeRK.iml" filepath="$PROJECT_DIR$//TeRK.iml" />
     </modules>
   </component>
+  <component name="ProjectResources">
+    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="JDK_1_5" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/../IDEA_compiler_output" />
   </component>
@@ -486,17 +492,6 @@
     <find-history />
   </component>
   <component name="libraryTable">
-    <library name="Commons Logging">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/java/lib/commons-logging/commons-logging-1.1.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$PROJECT_DIR$/java/lib/commons-logging/commons-logging-1.1.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$PROJECT_DIR$/java/lib/commons-logging/commons-logging-1.1.1-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="CREATE Lab Commons XML">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/java/lib/create-lab-commons-xml/create-lab-commons-xml.jar!/" />
@@ -528,7 +523,7 @@
     </library>
     <library name="Log4j">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/java/lib/log4j/log4j-1.2.15.jar!/" />
+        <root url="jar://$PROJECT_DIR$/java/lib/log4j/log4j-1.2.16.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="http://logging.apache.org/log4j/1.2/apidocs" />

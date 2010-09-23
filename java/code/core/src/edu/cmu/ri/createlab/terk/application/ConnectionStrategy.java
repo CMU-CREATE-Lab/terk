@@ -3,15 +3,14 @@ package edu.cmu.ri.createlab.terk.application;
 import java.util.HashSet;
 import java.util.Set;
 import edu.cmu.ri.createlab.terk.services.ServiceManager;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
 public abstract class ConnectionStrategy
    {
-   private static final Log LOG = LogFactory.getLog(ConnectionStrategy.class);
+   private static final Logger LOG = Logger.getLogger(ConnectionStrategy.class);
 
    private final Set<ConnectionStrategyEventHandler> eventHandlers = new HashSet<ConnectionStrategyEventHandler>();
 

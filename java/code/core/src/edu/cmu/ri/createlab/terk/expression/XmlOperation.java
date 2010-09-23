@@ -64,15 +64,15 @@ public final class XmlOperation extends XmlObject
     * Adds the given {@link XmlDevice}.  Returns <code>true</code> if the device was added, <code>false</code> otherwise
     */
    public boolean addDevice(final XmlDevice device)
+   {
+   if (device != null)
       {
-      if (device != null)
-         {
-         getElement().addContent(device.toElement());
-         devices.add(device);
-         return true;
-         }
-      return false;
+      getElement().addContent(device.toElement());
+      devices.add(device);
+      return true;
       }
+   return false;
+   }
 
    private int addDevices(final Set<XmlDevice> devices)
       {
@@ -97,9 +97,9 @@ public final class XmlOperation extends XmlObject
 
    /** Returns an unmodifiable {@link Set} of the devices. */
    public Set<XmlDevice> getDevices()
-      {
-      return Collections.unmodifiableSet(devices);
-      }
+   {
+   return Collections.unmodifiableSet(devices);
+   }
 
    public boolean equals(final Object o)
       {

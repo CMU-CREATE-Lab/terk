@@ -51,15 +51,15 @@ public final class AccelerometerUnitConversionStrategyFreescaleMMA7660FC impleme
     * {@link #MAX_NATIVE_VALUE} will be mapped to -0.046875 Gs.
     */
    public AccelerometerGs convert(final AccelerometerState accelerometerState)
+   {
+   if (accelerometerState != null)
       {
-      if (accelerometerState != null)
-         {
-         return new AccelerometerGs(convertToGs(accelerometerState.getX()),
-                                    convertToGs(accelerometerState.getY()),
-                                    convertToGs(accelerometerState.getZ()));
-         }
-      return null;
+      return new AccelerometerGs(convertToGs(accelerometerState.getX()),
+                                 convertToGs(accelerometerState.getY()),
+                                 convertToGs(accelerometerState.getZ()));
       }
+   return null;
+   }
 
    /**
     * Converts the G values in the given {@link AccelerometerState} to native values.  G values which are less than
@@ -67,15 +67,15 @@ public final class AccelerometerUnitConversionStrategyFreescaleMMA7660FC impleme
     * be mapped to {@link #MIDPOINT_NATIVE_VALUE}.
     */
    public AccelerometerState convert(final AccelerometerGs accelerometerState)
+   {
+   if (accelerometerState != null)
       {
-      if (accelerometerState != null)
-         {
-         return new AccelerometerState(convertToNative(accelerometerState.getX()),
-                                       convertToNative(accelerometerState.getY()),
-                                       convertToNative(accelerometerState.getZ()));
-         }
-      return null;
+      return new AccelerometerState(convertToNative(accelerometerState.getX()),
+                                    convertToNative(accelerometerState.getY()),
+                                    convertToNative(accelerometerState.getZ()));
       }
+   return null;
+   }
 
    private static int convertNativeToSixBit(final int val)
       {

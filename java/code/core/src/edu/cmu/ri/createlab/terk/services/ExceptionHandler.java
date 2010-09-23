@@ -13,7 +13,7 @@ public abstract class ExceptionHandler
    {
    /** Method for handling {@link Exception}s.  Does nothing by default. */
    public void handleException(final Exception exception)
-      {
-      // do nothing
-      }
+   {
+   // do nothing
+   }
    }

@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.swing.SwingUtilities;
 import edu.cmu.ri.createlab.terk.services.ServiceManager;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 /**
  * An abstract class for creating applications which want to connect to and control some TeRK entity (that is, something
@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class TerkApplication
    {
-   private static final Log LOG = LogFactory.getLog(TerkApplication.class);
+   private static final Logger LOG = Logger.getLogger(TerkApplication.class);
 
    public static final String CONNECTION_STRATEGY_CLASS_NAME_PROPERTY = "terk-application.connection-strategy.class.name";
 
@@ -120,9 +120,9 @@ public abstract class TerkApplication
     * <code>terk-application.connection-strategy.class.name</code> system property.
     */
    protected TerkApplication()
-      {
-      this(System.getProperty(CONNECTION_STRATEGY_CLASS_NAME_PROPERTY));
-      }
+   {
+   this(System.getProperty(CONNECTION_STRATEGY_CLASS_NAME_PROPERTY));
+   }
 
    /**
     * Creates a <code>TerkApplication</code> using the {@link ConnectionStrategy} implementation class defined in the
@@ -132,55 +132,25 @@ public abstract class TerkApplication
     * @throws IllegalStateException if the {@link ConnectionStrategy} implementation class could not be instantiated
     */
    protected TerkApplication(final String defaultConnectionStrategyClassName)
+   {
+   LOG.debug("TerkApplication.TerkApplication()");
+
+   if (isConnectionStrategyImplementationClassDefined())
       {
-      LOG.debug("TerkApplication.TerkApplication()");
-
-      if (isConnectionStrategyImplementationClassDefined())
+      final String systemPropertyConnectionStrategyClassName = System.getProperty(CONNECTION_STRATEGY_CLASS_NAME_PROPERTY);
+      ConnectionStrategy tempConnectionStrategy = instantiateConnectionStrategy(systemPropertyConnectionStrategyClassName);
+      if (tempConnectionStrategy == null)
          {
-         final String systemPropertyConnectionStrategyClassName = System.getProperty(CONNECTION_STRATEGY_CLASS_NAME_PROPERTY);
-         ConnectionStrategy tempConnectionStrategy = instantiateConnectionStrategy(systemPropertyConnectionStrategyClassName);
-         if (tempConnectionStrategy == null)
+         if (LOG.isEnabledFor(Level.ERROR))
             {
-            if (LOG.isErrorEnabled())
-               {
-               LOG.error("TerkApplication.TerkApplication(): System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] specifies an invalid ConnectionStrategy implementation class [" + systemPropertyConnectionStrategyClassName + "].  Attempting to use default [" + defaultConnectionStrategyClassName + "] implementation class instead.");
-               }
+            LOG.error("TerkApplication.TerkApplication(): System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] specifies an invalid ConnectionStrategy implementation class [" + systemPropertyConnectionStrategyClassName + "].  Attempting to use default [" + defaultConnectionStrategyClassName + "] implementation class instead.");
+            }
 
-            tempConnectionStrategy = instantiateConnectionStrategy(defaultConnectionStrategyClassName);
-            if (tempConnectionStrategy == null)
-               {
-               LOG.error("TerkApplication.TerkApplication(): default ConnectionStrategy implementation class is invalid.");
-               throw new IllegalStateException("System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] specifies an invalid ConnectionStrategy implementation class [" + systemPropertyConnectionStrategyClassName + "], and default implementation class [" + defaultConnectionStrategyClassName + "] is invalid!");
-               }
-            else
-               {
-               if (LOG.isDebugEnabled())
-                  {
-                  LOG.debug("TerkApplication.TerkApplication(): successfully instantiated ConnectionStrategy implementation class [" + defaultConnectionStrategyClassName + "]");
-                  }
-               connectionStrategy = tempConnectionStrategy;
-               }
-            }
-         else
-            {
-            if (LOG.isDebugEnabled())
-               {
-               LOG.debug("TerkApplication.TerkApplication(): successfully instantiated ConnectionStrategy implementation class [" + systemPropertyConnectionStrategyClassName + "]");
-               }
-            connectionStrategy = tempConnectionStrategy;
-            }
-         }
-      else
-         {
-         if (LOG.isInfoEnabled())
-            {
-            LOG.info("TerkApplication.TerkApplication(): System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] is not defined.  Attempting to use default [" + defaultConnectionStrategyClassName + "] implementation class instead.");
-            }
-         final ConnectionStrategy tempConnectionStrategy = instantiateConnectionStrategy(defaultConnectionStrategyClassName);
+         tempConnectionStrategy = instantiateConnectionStrategy(defaultConnectionStrategyClassName);
          if (tempConnectionStrategy == null)
             {
             LOG.error("TerkApplication.TerkApplication(): default ConnectionStrategy implementation class is invalid.");
-            throw new IllegalStateException("System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] is not defined, and default implementation class [" + defaultConnectionStrategyClassName + "] is invalid!");
+            throw new IllegalStateException("System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] specifies an invalid ConnectionStrategy implementation class [" + systemPropertyConnectionStrategyClassName + "], and default implementation class [" + defaultConnectionStrategyClassName + "] is invalid!");
             }
          else
             {
@@ -191,7 +161,37 @@ public abstract class TerkApplication
             connectionStrategy = tempConnectionStrategy;
             }
          }
+      else
+         {
+         if (LOG.isDebugEnabled())
+            {
+            LOG.debug("TerkApplication.TerkApplication(): successfully instantiated ConnectionStrategy implementation class [" + systemPropertyConnectionStrategyClassName + "]");
+            }
+         connectionStrategy = tempConnectionStrategy;
+         }
       }
+   else
+      {
+      if (LOG.isInfoEnabled())
+         {
+         LOG.info("TerkApplication.TerkApplication(): System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] is not defined.  Attempting to use default [" + defaultConnectionStrategyClassName + "] implementation class instead.");
+         }
+      final ConnectionStrategy tempConnectionStrategy = instantiateConnectionStrategy(defaultConnectionStrategyClassName);
+      if (tempConnectionStrategy == null)
+         {
+         LOG.error("TerkApplication.TerkApplication(): default ConnectionStrategy implementation class is invalid.");
+         throw new IllegalStateException("System property [" + CONNECTION_STRATEGY_CLASS_NAME_PROPERTY + "] is not defined, and default implementation class [" + defaultConnectionStrategyClassName + "] is invalid!");
+         }
+      else
+         {
+         if (LOG.isDebugEnabled())
+            {
+            LOG.debug("TerkApplication.TerkApplication(): successfully instantiated ConnectionStrategy implementation class [" + defaultConnectionStrategyClassName + "]");
+            }
+         connectionStrategy = tempConnectionStrategy;
+         }
+      }
+   }
 
    /**
     * Adds a {@link ConnectionStrategyEventHandler} by delegating to the {@link ConnectionStrategy}'s
@@ -199,18 +199,18 @@ public abstract class TerkApplication
     * method.
     */
    protected final void addConnectionStrategyEventHandler(final ConnectionStrategyEventHandler handler)
-      {
-      connectionStrategy.addConnectionStrategyEventHandler(handler);
-      }
+   {
+   connectionStrategy.addConnectionStrategyEventHandler(handler);
+   }
 
    /**
     * Returns <code>true</code> if connected, <code>false</code> otherwise.  Connection status is determined by
     * delegating to the {@link ConnectionStrategy}'s {@link ConnectionStrategy#isConnected() isConnected()} method.
     */
    protected final boolean isConnected()
-      {
-      return connectionStrategy.isConnected();
-      }
+   {
+   return connectionStrategy.isConnected();
+   }
 
    /**
     * Returns <code>true</code> if a connection is in the process of being established, <code>false</code> otherwise.
@@ -218,9 +218,9 @@ public abstract class TerkApplication
     * {@link ConnectionStrategy#isConnecting() isConnecting()} method.
     */
    protected final boolean isConnecting()
-      {
-      return connectionStrategy.isConnecting();
-      }
+   {
+   return connectionStrategy.isConnecting();
+   }
 
    /**
     * Initiates a connection by delegating to the {@link ConnectionStrategy}'s
@@ -228,16 +228,16 @@ public abstract class TerkApplication
     * executed in the GUI thread.
     */
    protected final void connect()
+   {
+   if (SwingUtilities.isEventDispatchThread())
       {
-      if (SwingUtilities.isEventDispatchThread())
-         {
-         executor.execute(connectRunnable);
-         }
-      else
-         {
-         connectRunnable.run();
-         }
+      executor.execute(connectRunnable);
       }
+   else
+      {
+      connectRunnable.run();
+      }
+   }
 
    /**
     * Cancels an in-progress connection by delegating to the {@link ConnectionStrategy}'s
@@ -245,16 +245,16 @@ public abstract class TerkApplication
     * not executed in the GUI thread.
     */
    protected final void cancelConnect()
+   {
+   if (SwingUtilities.isEventDispatchThread())
       {
-      if (SwingUtilities.isEventDispatchThread())
-         {
-         executor.execute(cancelConnectRunnable);
-         }
-      else
-         {
-         cancelConnectRunnable.run();
-         }
+      executor.execute(cancelConnectRunnable);
       }
+   else
+      {
+      cancelConnectRunnable.run();
+      }
+   }
 
    /**
     * Terminates a connection by delegating to the {@link ConnectionStrategy}'s
@@ -262,16 +262,16 @@ public abstract class TerkApplication
     * executed in the GUI thread.
     */
    protected final void disconnect()
+   {
+   if (SwingUtilities.isEventDispatchThread())
       {
-      if (SwingUtilities.isEventDispatchThread())
-         {
-         executor.execute(disconnectRunnable);
-         }
-      else
-         {
-         disconnectRunnable.run();
-         }
+      executor.execute(disconnectRunnable);
       }
+   else
+      {
+      disconnectRunnable.run();
+      }
+   }
 
    /**
     * Shuts down by delegating to the {@link ConnectionStrategy}'s
@@ -279,27 +279,27 @@ public abstract class TerkApplication
     * delegated call is not executed in the GUI thread.
     */
    protected final void shutdown()
+   {
+   LOG.debug("TerkApplication.shutdown()");
+   if (SwingUtilities.isEventDispatchThread())
       {
-      LOG.debug("TerkApplication.shutdown()");
-      if (SwingUtilities.isEventDispatchThread())
-         {
-         executor.execute(shutdownRunnable);
-         }
-      else
-         {
-         shutdownRunnable.run();
-         }
-
-      try
-         {
-         executor.shutdown();
-         executor.awaitTermination(5, TimeUnit.SECONDS);
-         }
-      catch (InterruptedException e)
-         {
-         LOG.error("InterruptedException while awaiting termination of TerkApplication's executor.", e);
-         }
+      executor.execute(shutdownRunnable);
       }
+   else
+      {
+      shutdownRunnable.run();
+      }
+
+   try
+      {
+      executor.shutdown();
+      executor.awaitTermination(5, TimeUnit.SECONDS);
+      }
+   catch (InterruptedException e)
+      {
+      LOG.error("InterruptedException while awaiting termination of TerkApplication's executor.", e);
+      }
+   }
 
    /**
     * Returns the {@link ServiceManager} created by the {@link ConnectionStrategy} by delegating to the
@@ -308,11 +308,11 @@ public abstract class TerkApplication
     * connection has been established).
     */
    protected final ServiceManager getServiceManager()
+   {
+   if (connectionStrategy != null)
       {
-      if (connectionStrategy != null)
-         {
-         return connectionStrategy.getServiceManager();
-         }
-      return null;
+      return connectionStrategy.getServiceManager();
       }
+   return null;
+   }
    }

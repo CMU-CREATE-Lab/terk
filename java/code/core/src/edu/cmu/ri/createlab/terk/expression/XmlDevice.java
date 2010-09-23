@@ -8,8 +8,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import edu.cmu.ri.createlab.xml.XmlObject;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jdom.Element;
 
 /**
@@ -17,7 +16,7 @@ import org.jdom.Element;
  */
 public final class XmlDevice extends XmlObject
    {
-   private static final Log LOG = LogFactory.getLog(XmlDevice.class);
+   private static final Logger LOG = Logger.getLogger(XmlDevice.class);
 
    static final String ELEMENT_NAME = "device";
    private static final String ATTR_ID = "id";
@@ -101,46 +100,46 @@ public final class XmlDevice extends XmlObject
 
    /** Returns the parameter having the given name, or <code>null</code> if no such parameter exists. */
    public XmlParameter getParameter(final String parameterName)
+   {
+   if (parameterName != null)
       {
-      if (parameterName != null)
+      final Map<String, XmlParameter> parametersMap = getParametersAsMap();
+      if ((parameters != null) && (!parameters.isEmpty()))
          {
-         final Map<String, XmlParameter> parametersMap = getParametersAsMap();
-         if ((parameters != null) && (!parameters.isEmpty()))
-            {
-            return parametersMap.get(parameterName);
-            }
+         return parametersMap.get(parameterName);
          }
-
-      return null;
       }
+
+   return null;
+   }
 
    /** Returns an unmodifiable {@link Set} of the parameters. */
    public Set<XmlParameter> getParameters()
-      {
-      return Collections.unmodifiableSet(parameters);
-      }
+   {
+   return Collections.unmodifiableSet(parameters);
+   }
 
    /** Returns a {@link Map} of parameter names to {@link XmlParameter}s. */
    public Map<String, XmlParameter> getParametersAsMap()
+   {
+   final Map<String, XmlParameter> map = new HashMap<String, XmlParameter>();
+   for (final XmlParameter parameter : parameters)
       {
-      final Map<String, XmlParameter> map = new HashMap<String, XmlParameter>();
-      for (final XmlParameter parameter : parameters)
-         {
-         map.put(parameter.getName(), parameter);
-         }
-      return map;
+      map.put(parameter.getName(), parameter);
       }
+   return map;
+   }
 
    /** Returns a {@link Map} of parameter names to values. */
    public Map<String, String> getParametersValuesAsMap()
+   {
+   final Map<String, String> map = new HashMap<String, String>();
+   for (final XmlParameter parameter : parameters)
       {
-      final Map<String, String> map = new HashMap<String, String>();
-      for (final XmlParameter parameter : parameters)
-         {
-         map.put(parameter.getName(), parameter.getValue());
-         }
-      return map;
+      map.put(parameter.getName(), parameter.getValue());
       }
+   return map;
+   }
 
    public boolean equals(final Object o)
       {
