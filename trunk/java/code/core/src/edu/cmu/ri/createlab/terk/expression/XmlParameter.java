@@ -1,8 +1,7 @@
 package edu.cmu.ri.createlab.terk.expression;
 
 import edu.cmu.ri.createlab.xml.XmlObject;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jdom.CDATA;
 import org.jdom.Content;
 import org.jdom.Element;
@@ -12,7 +11,7 @@ import org.jdom.Element;
  */
 public final class XmlParameter extends XmlObject
    {
-   private static final Log LOG = LogFactory.getLog(XmlParameter.class);
+   private static final Logger LOG = Logger.getLogger(XmlParameter.class);
 
    static final String ELEMENT_NAME = "parameter";
    private static final String ATTR_NAME = "name";
@@ -56,17 +55,17 @@ public final class XmlParameter extends XmlObject
     * <code>null</code>.
     */
    public Integer getValueAsInteger()
+   {
+   try
       {
-      try
-         {
-         return Integer.parseInt(value);
-         }
-      catch (NumberFormatException e)
-         {
-         LOG.trace("NumberFormatException while trying to convert [" + value + "] to an integer.  Returning null.", e);
-         }
-      return null;
+      return Integer.parseInt(value);
       }
+   catch (NumberFormatException e)
+      {
+      LOG.trace("NumberFormatException while trying to convert [" + value + "] to an integer.  Returning null.", e);
+      }
+   return null;
+   }
 
    public boolean equals(final Object o)
       {

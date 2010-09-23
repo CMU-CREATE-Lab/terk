@@ -10,15 +10,14 @@ import edu.cmu.ri.createlab.terk.expression.XmlOperation;
 import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
 public abstract class BaseSpeedControllableMotorServiceImpl extends BaseDeviceControllingService implements SpeedControllableMotorService
    {
-   private static final Log LOG = LogFactory.getLog(BaseSpeedControllableMotorServiceImpl.class);
+   private static final Logger LOG = Logger.getLogger(BaseSpeedControllableMotorServiceImpl.class);
 
    private final boolean[] maskAllOn;
    private final boolean[] maskAllOff;

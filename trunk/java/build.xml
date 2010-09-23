@@ -6,7 +6,6 @@
    <!-- Paths -->
    <path id="core-classpath">
       <!-- third-party jars -->
-      <pathelement path="${commons-logging.jar}"/>
       <pathelement path="${create-lab-commons-xml.jar}"/>
       <pathelement path="${jdom.jar}"/>
       <pathelement path="${log4j.jar}"/>
@@ -17,7 +16,6 @@
       <pathelement path="${core.build.dir}"/>
 
       <!-- third-party jars -->
-      <pathelement path="${commons-logging.jar}"/>
       <pathelement path="${create-lab-commons-xml.jar}"/>
       <pathelement path="${jdom.jar}"/>
       <pathelement path="${log4j.jar}"/>
@@ -189,7 +187,6 @@
 
          <!-- copy required jar files and native lib -->
          <copy todir="${@{component.name}.dist.dir}" flatten="true">
-            <fileset file="${commons-logging.jar}"/>
             <fileset file="${log4j.jar}"/>
             <additional-files-to-copy/>
          </copy>

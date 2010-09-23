@@ -11,15 +11,14 @@ import edu.cmu.ri.createlab.terk.expression.XmlOperation;
 import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
 public abstract class BaseFullColorLEDServiceImpl extends BaseDeviceControllingService implements FullColorLEDService
    {
-   private static final Log LOG = LogFactory.getLog(BaseFullColorLEDServiceImpl.class);
+   private static final Logger LOG = Logger.getLogger(BaseFullColorLEDServiceImpl.class);
 
    private static final Color OFF_COLOR = new Color(0, 0, 0);
 
