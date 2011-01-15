@@ -100,46 +100,46 @@ public final class XmlDevice extends XmlObject
 
    /** Returns the parameter having the given name, or <code>null</code> if no such parameter exists. */
    public XmlParameter getParameter(final String parameterName)
-   {
-   if (parameterName != null)
       {
-      final Map<String, XmlParameter> parametersMap = getParametersAsMap();
-      if ((parameters != null) && (!parameters.isEmpty()))
+      if (parameterName != null)
          {
-         return parametersMap.get(parameterName);
+         final Map<String, XmlParameter> parametersMap = getParametersAsMap();
+         if ((parameters != null) && (!parameters.isEmpty()))
+            {
+            return parametersMap.get(parameterName);
+            }
          }
-      }
 
-   return null;
-   }
+      return null;
+      }
 
    /** Returns an unmodifiable {@link Set} of the parameters. */
    public Set<XmlParameter> getParameters()
-   {
-   return Collections.unmodifiableSet(parameters);
-   }
+      {
+      return Collections.unmodifiableSet(parameters);
+      }
 
    /** Returns a {@link Map} of parameter names to {@link XmlParameter}s. */
    public Map<String, XmlParameter> getParametersAsMap()
-   {
-   final Map<String, XmlParameter> map = new HashMap<String, XmlParameter>();
-   for (final XmlParameter parameter : parameters)
       {
-      map.put(parameter.getName(), parameter);
+      final Map<String, XmlParameter> map = new HashMap<String, XmlParameter>();
+      for (final XmlParameter parameter : parameters)
+         {
+         map.put(parameter.getName(), parameter);
+         }
+      return map;
       }
-   return map;
-   }
 
    /** Returns a {@link Map} of parameter names to values. */
    public Map<String, String> getParametersValuesAsMap()
-   {
-   final Map<String, String> map = new HashMap<String, String>();
-   for (final XmlParameter parameter : parameters)
       {
-      map.put(parameter.getName(), parameter.getValue());
+      final Map<String, String> map = new HashMap<String, String>();
+      for (final XmlParameter parameter : parameters)
+         {
+         map.put(parameter.getName(), parameter.getValue());
+         }
+      return map;
       }
-   return map;
-   }
 
    public boolean equals(final Object o)
       {

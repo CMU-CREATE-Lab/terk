@@ -55,17 +55,17 @@ public final class XmlParameter extends XmlObject
     * <code>null</code>.
     */
    public Integer getValueAsInteger()
-   {
-   try
       {
-      return Integer.parseInt(value);
+      try
+         {
+         return Integer.parseInt(value);
+         }
+      catch (NumberFormatException e)
+         {
+         LOG.trace("NumberFormatException while trying to convert [" + value + "] to an integer.  Returning null.", e);
+         }
+      return null;
       }
-   catch (NumberFormatException e)
-      {
-      LOG.trace("NumberFormatException while trying to convert [" + value + "] to an integer.  Returning null.", e);
-      }
-   return null;
-   }
 
    public boolean equals(final Object o)
       {
