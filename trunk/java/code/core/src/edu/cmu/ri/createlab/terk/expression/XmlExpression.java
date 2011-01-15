@@ -54,17 +54,17 @@ public final class XmlExpression extends XmlObject
 
    /** Creates an <code>Expression</code> having the given {@link XmlService}. */
    public static XmlExpression create(final XmlService service)
-   {
-   final Set<XmlService> services = new HashSet<XmlService>(1);
-   services.add(service);
-   return new XmlExpression(services);
-   }
+      {
+      final Set<XmlService> services = new HashSet<XmlService>(1);
+      services.add(service);
+      return new XmlExpression(services);
+      }
 
    /** Creates an <code>Expression</code> having the given {@link XmlService}s. */
    public static XmlExpression create(final Set<XmlService> services)
-   {
-   return new XmlExpression(services);
-   }
+      {
+      return new XmlExpression(services);
+      }
 
    private final Set<XmlService> services = new HashSet<XmlService>();
 
@@ -126,24 +126,24 @@ public final class XmlExpression extends XmlObject
 
    /** Returns an unmodifiable {@link Set} of the services. */
    public Set<XmlService> getServices()
-   {
-   return Collections.unmodifiableSet(services);
-   }
+      {
+      return Collections.unmodifiableSet(services);
+      }
 
    /**
     * Returns the &lt;services&gt; element, creating it first, if necessary.
     */
    private Element getServicesElement()
-   {
-   Element servicesElement = getElement().getChild(SERVICES_ELEMENT_NAME);
-   if (servicesElement == null)
       {
-      servicesElement = createServicesElement();
-      getElement().addContent(servicesElement);
-      }
+      Element servicesElement = getElement().getChild(SERVICES_ELEMENT_NAME);
+      if (servicesElement == null)
+         {
+         servicesElement = createServicesElement();
+         getElement().addContent(servicesElement);
+         }
 
-   return servicesElement;
-   }
+      return servicesElement;
+      }
 
    private Element createServicesElement()
       {

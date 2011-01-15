@@ -13,11 +13,11 @@ public final class PositionControllableMotorState
     * Copy constructor.
     */
    public PositionControllableMotorState(final PositionControllableMotorState state)
-   {
-   this.currentPosition = state.currentPosition;
-   this.specifiedPosition = state.specifiedPosition;
-   this.specifiedSpeed = Math.abs(state.specifiedSpeed);
-   }
+      {
+      this.currentPosition = state.currentPosition;
+      this.specifiedPosition = state.specifiedPosition;
+      this.specifiedSpeed = Math.abs(state.specifiedSpeed);
+      }
 
    public PositionControllableMotorState(final int currentPosition,
                                          final int specifiedPosition,
