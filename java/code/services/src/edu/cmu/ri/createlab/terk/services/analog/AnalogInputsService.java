@@ -1,12 +1,13 @@
 package edu.cmu.ri.createlab.terk.services.analog;
 
 import edu.cmu.ri.createlab.terk.services.DeviceController;
+import edu.cmu.ri.createlab.terk.services.OperationExecutor;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface AnalogInputsService extends Service, DeviceController
+public interface AnalogInputsService extends Service, DeviceController, OperationExecutor
    {
    String TYPE_ID = "::TeRK::analog::AnalogInputsService";
 

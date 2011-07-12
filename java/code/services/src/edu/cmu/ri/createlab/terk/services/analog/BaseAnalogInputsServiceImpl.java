@@ -1,5 +1,8 @@
 package edu.cmu.ri.createlab.terk.services.analog;
 
+import java.util.Set;
+import edu.cmu.ri.createlab.terk.expression.XmlDevice;
+import edu.cmu.ri.createlab.terk.expression.XmlOperation;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
 
@@ -16,5 +19,27 @@ public abstract class BaseAnalogInputsServiceImpl extends BaseDeviceControllingS
    public final String getTypeId()
       {
       return AnalogInputsService.TYPE_ID;
+      }
+
+   public final Object executeOperation(final XmlOperation operation)
+      {
+      if ("getAnalogInputValue".equalsIgnoreCase(operation.getName()))
+         {
+         // TODO: For now, just assume there's only one device...
+         final Set<XmlDevice> devices = operation.getDevices();
+         if (devices != null && !devices.isEmpty())
+            {
+            final XmlDevice device = devices.iterator().next();
+            if (device != null)
+               {
+               return getAnalogInputValue(device.getId());
+               }
+            }
+         }
+      else
+         {
+         throw new UnsupportedOperationException();
+         }
+      return null;
       }
    }
