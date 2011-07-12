@@ -1,14 +1,29 @@
 package edu.cmu.ri.createlab.terk.services.audio;
 
+import edu.cmu.ri.createlab.terk.services.DeviceController;
 import edu.cmu.ri.createlab.terk.services.ExceptionHandler;
+import edu.cmu.ri.createlab.terk.services.OperationExecutor;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface AudioService extends Service
+public interface AudioService extends Service, DeviceController, OperationExecutor
    {
    String TYPE_ID = "::TeRK::AudioController";
+
+   String OPERATION_NAME_PLAY_TONE = "playTone";
+   String OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY = "playToneAsynchronously";
+   String PARAMETER_NAME_TONE_AMPLITUDE = "amplitude";
+   String PARAMETER_NAME_TONE_DURATION = "duration";
+   String PARAMETER_NAME_TONE_FREQUENCY = "frequency";
+
+   String OPERATION_NAME_PLAY_CLIP = "playClip";
+   String OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY = "playClipAsynchronously";
+   String PARAMETER_NAME_CLIP_FILE = "file";
+
+   String OPERATION_NAME_SPEAK = "speak";
+   String PARAMETER_NAME_SPEAK_TEXT = "text";
 
    String PROPERTY_NAME_MIN_AMPLITUDE = TYPE_ID + "::min-amplitude";
    String PROPERTY_NAME_MAX_AMPLITUDE = TYPE_ID + "::max-amplitude";
