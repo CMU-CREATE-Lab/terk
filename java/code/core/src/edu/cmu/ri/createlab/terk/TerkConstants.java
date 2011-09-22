@@ -11,6 +11,7 @@ import java.io.File;
  */
 public final class TerkConstants
    {
+   @Deprecated
    public static final class FilePaths
       {
       public static final String TERK_PATH = System.getProperty("user.home") + File.separator + "TeRK" + File.separator;

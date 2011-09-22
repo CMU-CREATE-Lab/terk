@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.TerkConstants;
 import edu.cmu.ri.createlab.terk.expression.XmlDevice;
 import edu.cmu.ri.createlab.terk.expression.XmlOperation;
 import edu.cmu.ri.createlab.terk.expression.XmlParameter;
@@ -17,28 +16,17 @@ import org.apache.log4j.Logger;
 public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implements AudioService
    {
    private static final Logger LOG = Logger.getLogger(BaseAudioServiceImpl.class);
-   private static final File DEFAULT_AUDIO_DIRECTORY = TerkConstants.FilePaths.AUDIO_DIR;
 
    private final File audioDirectory;
 
    /**
-    * Creates a BaseAudioServiceImpl with the given {@link PropertyManager} and uses
-    * {@link TerkConstants.FilePaths#AUDIO_DIR} for the audio directory.
-    */
-   public BaseAudioServiceImpl(final PropertyManager propertyManager)
-      {
-      this(propertyManager, DEFAULT_AUDIO_DIRECTORY);
-      }
-
-   /**
     * Creates a BaseAudioServiceImpl with the given {@link PropertyManager} and uses the given
-    * <code>audioDirectory</code> for the audio directory.  If the given directory is <code>null</code>, does not exist,
-    * or is invalid, the default audio directory is used instead ({@link TerkConstants.FilePaths#AUDIO_DIR}).
+    * <code>audioDirectory</code> for the audio directory.
     */
    public BaseAudioServiceImpl(final PropertyManager propertyManager, final File audioDirectory)
       {
       super(propertyManager);
-      this.audioDirectory = (audioDirectory != null && audioDirectory.isDirectory()) ? audioDirectory : DEFAULT_AUDIO_DIRECTORY;
+      this.audioDirectory = audioDirectory;
       }
 
    public final String getTypeId()
