@@ -32,8 +32,8 @@ public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implem
 
    /**
     * Creates a BaseAudioServiceImpl with the given {@link PropertyManager} and uses the given
-    * <code>audioDirectory</code> for the audio directory.  If the given directory is <code>null</code> or invalid,
-    * the default audio directory is used instead ({@link TerkConstants.FilePaths#AUDIO_DIR}).
+    * <code>audioDirectory</code> for the audio directory.  If the given directory is <code>null</code>, does not exist,
+    * or is invalid, the default audio directory is used instead ({@link TerkConstants.FilePaths#AUDIO_DIR}).
     */
    public BaseAudioServiceImpl(final PropertyManager propertyManager, final File audioDirectory)
       {
