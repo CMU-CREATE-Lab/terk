@@ -36,6 +36,13 @@ public final class TerkConstants
       public static final String DEVICE_COUNT = "device.count";
       public static final String HARDWARE_TYPE = "hardware.type";
       public static final String HARDWARE_VERSION = "hardware.version";
+      public static final String HARDWARE_VERSION_MAJOR = "hardware.version.major";
+      public static final String HARDWARE_VERSION_MINOR = "hardware.version.minor";
+      public static final String HARDWARE_VERSION_REVISION = "hardware.version.revision";
+      public static final String FIRMWARE_VERSION = "firmware.version";
+      public static final String FIRMWARE_VERSION_MAJOR = "firmware.version.major";
+      public static final String FIRMWARE_VERSION_MINOR = "firmware.version.minor";
+      public static final String FIRMWARE_VERSION_REVISION = "firmware.version.revision";
 
       private PropertyKeys()
          {
