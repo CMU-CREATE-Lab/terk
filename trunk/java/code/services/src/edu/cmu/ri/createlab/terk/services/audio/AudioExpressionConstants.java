@@ -17,28 +17,32 @@ import java.util.Set;
 @SuppressWarnings({"PublicStaticCollectionField"})
 public final class AudioExpressionConstants
    {
-   public static final String OPERATION_NAME_TONE = "playTone";
-   public static final String PARAMETER_NAME_FREQUENCY = "frequency";
-   public static final String PARAMETER_NAME_AMPLITUDE = "amplitude";
-   public static final String PARAMETER_NAME_DURATION = "duration";
+   public static final String OPERATION_NAME_PLAY_TONE = "playTone";
+   public static final String OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY = "playTone";
+   public static final String PARAMETER_NAME_TONE_FREQUENCY = "frequency";
+   public static final String PARAMETER_NAME_TONE_AMPLITUDE = "amplitude";
+   public static final String PARAMETER_NAME_TONE_DURATION = "duration";
 
-   public static final String OPERATION_NAME_CLIP = "playClip";
-   public static final String PARAMETER_NAME_FILE = "file";
+   public static final String OPERATION_NAME_PLAY_CLIP = "playClip";
+   public static final String OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY = "playClipAsynchronously";
+   public static final String PARAMETER_NAME_CLIP_FILE = "file";
 
-   public static final String OPERATION_NAME_SPEECH = "speak";
-   public static final String PARAMETER_NAME_TEXT = "text";
+   public static final String OPERATION_NAME_SPEAK = "speak";
+   public static final String PARAMETER_NAME_SPEAK_TEXT = "text";
 
-   public static final Set<String> TONE_PARAMETER_NAMES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(PARAMETER_NAME_FREQUENCY, PARAMETER_NAME_AMPLITUDE, PARAMETER_NAME_DURATION)));
-   public static final Set<String> CLIP_PARAMETER_NAMES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(PARAMETER_NAME_FILE)));
-   public static final Set<String> SPEECH_PARAMETER_NAMES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(PARAMETER_NAME_TEXT)));
+   public static final Set<String> PLAY_TONE_PARAMETER_NAMES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(PARAMETER_NAME_TONE_FREQUENCY, PARAMETER_NAME_TONE_AMPLITUDE, PARAMETER_NAME_TONE_DURATION)));
+   public static final Set<String> PLAY_CLIP_PARAMETER_NAMES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(PARAMETER_NAME_CLIP_FILE)));
+   public static final Set<String> SPEAK_PARAMETER_NAMES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(PARAMETER_NAME_SPEAK_TEXT)));
    public static final Map<String, Set<String>> OPERATIONS_TO_PARAMETERS_MAP;
 
    static
       {
       final Map<String, Set<String>> operationsToParametersMap = new HashMap<String, Set<String>>();
-      operationsToParametersMap.put(OPERATION_NAME_TONE, TONE_PARAMETER_NAMES);
-      operationsToParametersMap.put(OPERATION_NAME_CLIP, CLIP_PARAMETER_NAMES);
-      operationsToParametersMap.put(OPERATION_NAME_SPEECH, SPEECH_PARAMETER_NAMES);
+      operationsToParametersMap.put(OPERATION_NAME_PLAY_TONE, PLAY_TONE_PARAMETER_NAMES);
+      operationsToParametersMap.put(OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY, PLAY_TONE_PARAMETER_NAMES);
+      operationsToParametersMap.put(OPERATION_NAME_PLAY_CLIP, PLAY_CLIP_PARAMETER_NAMES);
+      operationsToParametersMap.put(OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY, PLAY_CLIP_PARAMETER_NAMES);
+      operationsToParametersMap.put(OPERATION_NAME_SPEAK, SPEAK_PARAMETER_NAMES);
       OPERATIONS_TO_PARAMETERS_MAP = Collections.unmodifiableMap(operationsToParametersMap);
       }
 
