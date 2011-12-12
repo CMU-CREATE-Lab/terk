@@ -54,15 +54,15 @@ public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implem
             {
             final XmlDevice device = devices.iterator().next();
 
-            if (OPERATION_NAME_PLAY_TONE.equalsIgnoreCase(o.getName()) ||
-                OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
+            if (AudioExpressionConstants.OPERATION_NAME_PLAY_TONE.equalsIgnoreCase(o.getName()) ||
+                AudioExpressionConstants.OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
                {
                final Map<String, XmlParameter> parameterMap = device.getParametersAsMap();
                if ((parameterMap != null) && (!parameterMap.isEmpty()))
                   {
-                  final XmlParameter amplitudeParam = parameterMap.get(PARAMETER_NAME_TONE_AMPLITUDE);
-                  final XmlParameter durationParam = parameterMap.get(PARAMETER_NAME_TONE_DURATION);
-                  final XmlParameter frequencyParam = parameterMap.get(PARAMETER_NAME_TONE_FREQUENCY);
+                  final XmlParameter amplitudeParam = parameterMap.get(AudioExpressionConstants.PARAMETER_NAME_TONE_AMPLITUDE);
+                  final XmlParameter durationParam = parameterMap.get(AudioExpressionConstants.PARAMETER_NAME_TONE_DURATION);
+                  final XmlParameter frequencyParam = parameterMap.get(AudioExpressionConstants.PARAMETER_NAME_TONE_FREQUENCY);
                   if (amplitudeParam != null && durationParam != null && frequencyParam != null)
                      {
                      final Integer amplitude = amplitudeParam.getValueAsInteger();
@@ -71,7 +71,7 @@ public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implem
 
                      if (amplitude != null && duration != null && frequency != null)
                         {
-                        if (OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
+                        if (AudioExpressionConstants.OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
                            {
                            playToneAsynchronously(frequency, amplitude, duration, null);
                            }
@@ -83,10 +83,10 @@ public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implem
                      }
                   }
                }
-            else if (OPERATION_NAME_PLAY_CLIP.equalsIgnoreCase(o.getName()) ||
-                     OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
+            else if (AudioExpressionConstants.OPERATION_NAME_PLAY_CLIP.equalsIgnoreCase(o.getName()) ||
+                     AudioExpressionConstants.OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
                {
-               final XmlParameter fileParameter = device.getParameter(PARAMETER_NAME_CLIP_FILE);
+               final XmlParameter fileParameter = device.getParameter(AudioExpressionConstants.PARAMETER_NAME_CLIP_FILE);
                if (fileParameter != null)
                   {
                   final String fileStr = fileParameter.getValue();
@@ -95,7 +95,7 @@ public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implem
                      final File file = new File(audioDirectory, fileStr);
                      try
                         {
-                        if (OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
+                        if (AudioExpressionConstants.OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY.equalsIgnoreCase(o.getName()))
                            {
                            playSoundAsynchronously(getFileAsBytes(file), null);
                            }
@@ -107,6 +107,21 @@ public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implem
                      catch (IOException e)
                         {
                         LOG.error("IOException while trying to read sound file [" + file + "]", e);
+                        }
+                     }
+                  }
+               }
+            else if (AudioExpressionConstants.OPERATION_NAME_SPEAK.equalsIgnoreCase(o.getName()))
+               {
+               if (isSpeechSupported())
+                  {
+                  final XmlParameter speechTextParameter = device.getParameter(AudioExpressionConstants.PARAMETER_NAME_SPEAK_TEXT);
+                  if (speechTextParameter != null)
+                     {
+                     final String speechText = speechTextParameter.getValue();
+                     if ((speechText != null) && (speechText.length() > 0))
+                        {
+                        speak(speechText);
                         }
                      }
                   }

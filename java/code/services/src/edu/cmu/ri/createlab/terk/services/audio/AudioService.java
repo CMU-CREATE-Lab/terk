@@ -12,19 +12,6 @@ public interface AudioService extends Service, DeviceController, OperationExecut
    {
    String TYPE_ID = "::TeRK::AudioController";
 
-   String OPERATION_NAME_PLAY_TONE = "playTone";
-   String OPERATION_NAME_PLAY_TONE_ASYNCHRONOUSLY = "playToneAsynchronously";
-   String PARAMETER_NAME_TONE_AMPLITUDE = "amplitude";
-   String PARAMETER_NAME_TONE_DURATION = "duration";
-   String PARAMETER_NAME_TONE_FREQUENCY = "frequency";
-
-   String OPERATION_NAME_PLAY_CLIP = "playClip";
-   String OPERATION_NAME_PLAY_CLIP_ASYNCHRONOUSLY = "playClipAsynchronously";
-   String PARAMETER_NAME_CLIP_FILE = "file";
-
-   String OPERATION_NAME_SPEAK = "speak";
-   String PARAMETER_NAME_SPEAK_TEXT = "text";
-
    String PROPERTY_NAME_MIN_AMPLITUDE = TYPE_ID + "::min-amplitude";
    String PROPERTY_NAME_MAX_AMPLITUDE = TYPE_ID + "::max-amplitude";
    String PROPERTY_NAME_MIN_DURATION = TYPE_ID + "::min-duration";
@@ -74,4 +61,23 @@ public interface AudioService extends Service, DeviceController, OperationExecut
     * @param callback the {@link ExceptionHandler} to handle exceptions; may be <code>null</code>
     */
    void playSoundAsynchronously(final byte[] sound, final ExceptionHandler callback);
+
+   /**
+    * If supported, this method converts the given text into speech, and returns the resulting WAV sound clip as a byte
+    * array.  If speech is not not supported, this method simply returns <code>null</code>.
+    *
+    * @see #isSpeechSupported()
+    */
+   byte[] getSpeech(final String whatToSay);
+
+   /**
+    * If supported, this method converts the given text into audio and plays it.  Does nothing if speech is not
+    * supported.
+    *
+    * @see #isSpeechSupported()
+    */
+   void speak(final String whatToSay);
+
+   /** Returns whether speech is supported. */
+   boolean isSpeechSupported();
    }
