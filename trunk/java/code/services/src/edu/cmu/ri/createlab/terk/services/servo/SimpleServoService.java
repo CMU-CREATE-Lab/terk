@@ -17,6 +17,9 @@ public interface SimpleServoService extends Service, DeviceController, Operation
    String PROPERTY_NAME_MIN_POSITION = TYPE_ID + "::min-position";
    String PROPERTY_NAME_MAX_POSITION = TYPE_ID + "::max-position";
 
+   String PROPERTY_NAME_MIN_SAFE_POSITION = TYPE_ID + "::min-safe-position";
+   String PROPERTY_NAME_MAX_SAFE_POSITION = TYPE_ID + "::max-safe-position";
+
    /**
     *	Sets the servo specified by the given id to the given position.
     *
