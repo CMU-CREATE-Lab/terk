@@ -1,6 +1,7 @@
 package edu.cmu.ri.createlab.terk.services.motor;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +21,7 @@ public abstract class BaseOpenLoopVelocityControllableMotorServiceImpl extends B
 
    private final boolean[] maskAllOn;
    private final int[] allZeros;
+   private final Map<Integer, boolean[]> motorIdToMaskArrayMap;
 
    public BaseOpenLoopVelocityControllableMotorServiceImpl(final PropertyManager propertyManager, final int deviceCount)
       {
@@ -32,18 +34,40 @@ public abstract class BaseOpenLoopVelocityControllableMotorServiceImpl extends B
       // create and initialize the array used for zero velocities
       allZeros = new int[deviceCount];
       Arrays.fill(allZeros, 0);
+
+      // build the mask arrays for each motor and store them in a map indexed on motor id
+      final Map<Integer, boolean[]> motorIdToMaskMapTemp = new HashMap<Integer, boolean[]>(deviceCount);
+      for (int i = 0; i < deviceCount; i++)
+         {
+         final boolean[] mask = new boolean[deviceCount];
+         mask[i] = true;
+         motorIdToMaskMapTemp.put(i, mask);
+         }
+      motorIdToMaskArrayMap = Collections.unmodifiableMap(motorIdToMaskMapTemp);
       }
 
+   @Override
    public final String getTypeId()
       {
       return TYPE_ID;
       }
 
+   @Override
+   public final boolean setVelocity(final int motorId, final int velocity)
+      {
+      final int[] velocities = new int[getDeviceCount()];
+      velocities[motorId] = velocity;
+
+      return execute(getMask(motorId), velocities);
+      }
+
+   @Override
    public final boolean setVelocities(final int[] velocities)
       {
       return execute(maskAllOn, velocities);
       }
 
+   @Override
    public final boolean stop(final int... motorIds)
       {
       final boolean[] mask;
@@ -64,6 +88,7 @@ public abstract class BaseOpenLoopVelocityControllableMotorServiceImpl extends B
       return execute(mask, allZeros);
       }
 
+   @Override
    public final Object executeOperation(final XmlOperation operation)
       {
       if (OPERATION_NAME_SET_VELOCITY.equalsIgnoreCase(operation.getName()))
@@ -122,6 +147,11 @@ public abstract class BaseOpenLoopVelocityControllableMotorServiceImpl extends B
          }
 
       return execute(mask, velocities);
+      }
+
+   private boolean[] getMask(final int motorid)
+      {
+      return motorIdToMaskArrayMap.get(motorid);
       }
 
    protected abstract boolean execute(final boolean[] mask, final int[] velocities);
