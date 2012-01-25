@@ -20,6 +20,18 @@ public interface OpenLoopVelocityControllableMotorService extends Service, Devic
    String PARAMETER_NAME_VELOCITY = "velocity";
 
    /**
+    * Sets the given motor to the the given <code>velocity</code>.  Returns <code>true</code> upon success;
+    * <code>false</code> otherwise.
+    * </p>
+    * <p>
+    * Note that, depending on the implementation, other motors might be set to 0.  For example, if the service controls
+    * two motors (IDs 0 and 1), and a call to this method sets the velocity of motor 0, then the velocity of motor 1 may
+    * be set to 0.
+    * </p>
+    */
+   boolean setVelocity(final int motorId, final int velocity);
+
+   /**
     * <p>
     * Sets the motor velocities to the given <code>velocities</code> (in native units).  Returns <code>true</code> upon
     * success; <code>false</code> otherwise.
