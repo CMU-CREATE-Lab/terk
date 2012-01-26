@@ -23,7 +23,7 @@ public abstract class BaseAnalogInputsServiceImpl extends BaseDeviceControllingS
 
    public final Object executeOperation(final XmlOperation operation)
       {
-      if ("getAnalogInputValue".equalsIgnoreCase(operation.getName()))
+      if (OPERATION_NAME_GET_ANALOG_INPUT_VALUE.equalsIgnoreCase(operation.getName()))
          {
          // TODO: For now, just assume there's only one device...
          final Set<XmlDevice> devices = operation.getDevices();

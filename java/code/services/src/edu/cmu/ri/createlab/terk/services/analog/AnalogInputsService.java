@@ -14,6 +14,8 @@ public interface AnalogInputsService extends Service, DeviceController, Operatio
    String PROPERTY_NAME_MIN_VALUE = TYPE_ID + "::min-value";
    String PROPERTY_NAME_MAX_VALUE = TYPE_ID + "::max-value";
 
+   String OPERATION_NAME_GET_ANALOG_INPUT_VALUE = "getAnalogInputValue";
+
    /**
     * Returns the value of the analog input specified by the given <code>id</code>.  Returns <code>null</code> if the
     * value could not be retrieved.
