@@ -17,8 +17,8 @@ public final class XmlDevice extends XmlObject
    {
    private static final Logger LOG = Logger.getLogger(XmlDevice.class);
 
-   static final String ELEMENT_NAME = "device";
-   private static final String ATTR_ID = "id";
+   public static final String ELEMENT_NAME = "device";
+   public static final String ATTR_ID = "id";
 
    private final int id;
    private final Set<XmlParameter> parameters = new HashSet<XmlParameter>();

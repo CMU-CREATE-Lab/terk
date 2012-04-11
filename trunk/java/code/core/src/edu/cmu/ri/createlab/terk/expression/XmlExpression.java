@@ -21,13 +21,13 @@ import org.jdom.JDOMException;
  */
 public final class XmlExpression extends XmlObject
    {
-   private static final String ELEMENT_NAME = "expression";
-   private static final String ATTR_VERSION = "version";
+   public static final String ELEMENT_NAME = "expression";
+   public static final String ATTR_VERSION = "version";
 
-   private static final String SERVICES_ELEMENT_NAME = "services";
+   public static final String SERVICES_ELEMENT_NAME = "services";
 
-   private static final String DOCTYPE_PUBLIC_ID = "-//CREATE Lab//TeRK//Expression//EN";
-   private static final String DOCTYPE_SYSTEM_ID = "http://www.createlab.ri.cmu.edu/dtd/terk/expression.dtd";
+   public static final String DOCTYPE_PUBLIC_ID = "-//CREATE Lab//TeRK//Expression//EN";
+   public static final String DOCTYPE_SYSTEM_ID = "http://www.createlab.ri.cmu.edu/dtd/terk/expression.dtd";
    private static final DocType DOC_TYPE = new DocType(ELEMENT_NAME, DOCTYPE_PUBLIC_ID, DOCTYPE_SYSTEM_ID);
 
    private static final String DEFAULT_VERSION = "1.0";

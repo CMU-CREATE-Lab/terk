@@ -13,7 +13,8 @@ import org.jdom.Element;
 public final class XmlService extends XmlObject
    {
    public static final String ELEMENT_NAME = "service";
-   private static final String ATTR_TYPE_ID = "type-id";
+   public static final String ATTR_TYPE_ID = "type-id";
+
    private final String typeId;
    private final List<XmlOperation> operations = new ArrayList<XmlOperation>();
 
