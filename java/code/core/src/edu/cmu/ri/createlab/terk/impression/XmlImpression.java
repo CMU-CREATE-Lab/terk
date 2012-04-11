@@ -19,7 +19,7 @@ import org.jdom.JDOMException;
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public final class XmlIpression extends XmlObject
+public final class XmlImpression extends XmlObject
    {
    private static final String ELEMENT_NAME = "impression";
    private static final String ATTR_VERSION = "version";
@@ -34,41 +34,41 @@ public final class XmlIpression extends XmlObject
 
    private String name;
 
-   public static XmlIpression create(final String xml) throws IOException, JDOMException
+   public static XmlImpression create(final String xml) throws IOException, JDOMException
       {
       final Document document = XmlHelper.createDocument(xml);
       document.setDocType((DocType)DOC_TYPE.clone());
       final Element element = XmlHelper.createElement(XmlHelper.writeDocumentToString(document));
-      return new XmlIpression(element);
+      return new XmlImpression(element);
       }
 
-   public static XmlIpression create(final InputStream inputStream) throws IOException, JDOMException
+   public static XmlImpression create(final InputStream inputStream) throws IOException, JDOMException
       {
-      return new XmlIpression(XmlHelper.createElement(inputStream));
+      return new XmlImpression(XmlHelper.createElement(inputStream));
       }
 
-   public static XmlIpression create(final File file) throws IOException, JDOMException
+   public static XmlImpression create(final File file) throws IOException, JDOMException
       {
       return create(new FileInputStream(file));
       }
 
    /** Creates an <code>Impression</code> having the given {@link XmlService}. */
-   public static XmlIpression create(final XmlService service)
+   public static XmlImpression create(final XmlService service)
       {
       final Set<XmlService> services = new HashSet<XmlService>(1);
       services.add(service);
-      return new XmlIpression(services);
+      return new XmlImpression(services);
       }
 
    /** Creates an <code>Impression</code> having the given {@link XmlService}s. */
-   public static XmlIpression create(final Set<XmlService> services)
+   public static XmlImpression create(final Set<XmlService> services)
       {
-      return new XmlIpression(services);
+      return new XmlImpression(services);
       }
 
    private final Set<XmlService> services = new HashSet<XmlService>();
 
-   private XmlIpression(final Set<XmlService> services)
+   private XmlImpression(final Set<XmlService> services)
       {
       getElement().setName(ELEMENT_NAME);
       getElement().setAttribute(ATTR_VERSION, DEFAULT_VERSION);
@@ -76,7 +76,7 @@ public final class XmlIpression extends XmlObject
       addServices(services);
       }
 
-   private XmlIpression(final Element element)
+   private XmlImpression(final Element element)
       {
       super(element);
       final List serviceElements = getServicesElement().getChildren(XmlService.ELEMENT_NAME);
@@ -161,7 +161,7 @@ public final class XmlIpression extends XmlObject
          return false;
          }
 
-      final XmlIpression that = (XmlIpression)o;
+      final XmlImpression that = (XmlImpression)o;
 
       if (services != null ? !services.equals(that.services) : that.services != null)
          {
