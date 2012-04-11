@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.expression.XmlDevice;
-import edu.cmu.ri.createlab.terk.expression.XmlOperation;
-import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
+import edu.cmu.ri.createlab.terk.xml.XmlParameter;
 import org.apache.log4j.Logger;
 
 /**
@@ -58,21 +58,43 @@ public abstract class BaseSimpleLEDServiceImpl extends BaseDeviceControllingServ
       return TYPE_ID;
       }
 
-   public final Object executeOperation(final XmlOperation operation)
+   @Override
+   public final int[] executeExpressionOperation(final XmlOperation operation)
       {
-      if (OPERATION_NAME_SET_INTENSITY.equalsIgnoreCase(operation.getName()))
+      if (operation != null)
          {
-         setIntensities(operation);
-         }
-      else
-         {
-         throw new UnsupportedOperationException();
+         if (OPERATION_NAME_SET_INTENSITY.equalsIgnoreCase(operation.getName()))
+            {
+            return setIntensities(operation);
+            }
+         else
+            {
+            throw new UnsupportedOperationException();
+            }
          }
 
       return null;
       }
 
-   private void setIntensities(final XmlOperation o)
+   @Override
+   public final int[] executeImpressionOperation(final XmlOperation operation)
+      {
+      if (operation != null)
+         {
+         if (OPERATION_NAME_GET_INTENSITIES.equalsIgnoreCase(operation.getName()))
+            {
+            // return all values, ignoring specified devices
+            return getIntensities();
+            }
+         else
+            {
+            throw new UnsupportedOperationException("The operation [" + operation.getName() + "] is not supported.");
+            }
+         }
+      return null;
+      }
+
+   private int[] setIntensities(final XmlOperation o)
       {
       final Set<XmlDevice> devices = o.getDevices();
       final Map<Integer, Integer> data = new HashMap<Integer, Integer>(devices.size() * 2);
@@ -91,10 +113,10 @@ public abstract class BaseSimpleLEDServiceImpl extends BaseDeviceControllingServ
          data.put(d.getId(), intensity);
          }
 
-      set(data);
+      return set(data);
       }
 
-   private void set(final Map<Integer, Integer> data)
+   private int[] set(final Map<Integer, Integer> data)
       {
       final Set<Map.Entry<Integer, Integer>> entries = data.entrySet();
 
@@ -115,7 +137,7 @@ public abstract class BaseSimpleLEDServiceImpl extends BaseDeviceControllingServ
             }
          }
 
-      execute(mask, values);
+      return execute(mask, values);
       }
 
    public final void set(final int id, final int intensity)

@@ -2,13 +2,12 @@
 <!DOCTYPE expression PUBLIC "-//CREATE Lab//TeRK//Expression//EN" "http://www.createlab.ri.cmu.edu/dtd/terk/expression.dtd">
 
 <expression version="1.0">
-   <!-- TODO: Do we need this stuff?
    <info>
       <name><![CDATA[Hello World]]></name>
       <description><![CDATA[This is a description]]></description>
       <created-timestamp>1207926600000</created-timestamp>
    </info>
-   -->
+
    <services>
       <!-- AUDIO-->
       <service type-id="::TeRK::AudioController">

@@ -1,13 +1,13 @@
 package edu.cmu.ri.createlab.terk.services.analog;
 
+import edu.cmu.ri.createlab.terk.impression.ImpressionOperationExecutor;
 import edu.cmu.ri.createlab.terk.services.DeviceController;
-import edu.cmu.ri.createlab.terk.services.OperationExecutor;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface AnalogInputsService extends Service, DeviceController, OperationExecutor
+public interface AnalogInputsService extends Service, DeviceController, ImpressionOperationExecutor<Object>
    {
    String TYPE_ID = "::TeRK::analog::AnalogInputsService";
 
@@ -15,6 +15,7 @@ public interface AnalogInputsService extends Service, DeviceController, Operatio
    String PROPERTY_NAME_MAX_VALUE = TYPE_ID + "::max-value";
 
    String OPERATION_NAME_GET_ANALOG_INPUT_VALUE = "getAnalogInputValue";
+   String OPERATION_NAME_GET_ANALOG_INPUT_VALUES = "getAnalogInputValues";
 
    /**
     * Returns the value of the analog input specified by the given <code>id</code>.  Returns <code>null</code> if the

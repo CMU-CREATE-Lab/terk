@@ -1,4 +1,4 @@
-package edu.cmu.ri.createlab.terk.expression;
+package edu.cmu.ri.createlab.terk.impression;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,56 +19,56 @@ import org.jdom.JDOMException;
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public final class XmlExpression extends XmlObject
+public final class XmlIpression extends XmlObject
    {
-   private static final String ELEMENT_NAME = "expression";
+   private static final String ELEMENT_NAME = "impression";
    private static final String ATTR_VERSION = "version";
 
    private static final String SERVICES_ELEMENT_NAME = "services";
 
-   private static final String DOCTYPE_PUBLIC_ID = "-//CREATE Lab//TeRK//Expression//EN";
-   private static final String DOCTYPE_SYSTEM_ID = "http://www.createlab.ri.cmu.edu/dtd/terk/expression.dtd";
+   private static final String DOCTYPE_PUBLIC_ID = "-//CREATE Lab//TeRK//Impression//EN";
+   private static final String DOCTYPE_SYSTEM_ID = "http://www.createlab.ri.cmu.edu/dtd/terk/impression.dtd";
    private static final DocType DOC_TYPE = new DocType(ELEMENT_NAME, DOCTYPE_PUBLIC_ID, DOCTYPE_SYSTEM_ID);
 
    private static final String DEFAULT_VERSION = "1.0";
 
    private String name;
 
-   public static XmlExpression create(final String xml) throws IOException, JDOMException
+   public static XmlIpression create(final String xml) throws IOException, JDOMException
       {
       final Document document = XmlHelper.createDocument(xml);
       document.setDocType((DocType)DOC_TYPE.clone());
       final Element element = XmlHelper.createElement(XmlHelper.writeDocumentToString(document));
-      return new XmlExpression(element);
+      return new XmlIpression(element);
       }
 
-   public static XmlExpression create(final InputStream inputStream) throws IOException, JDOMException
+   public static XmlIpression create(final InputStream inputStream) throws IOException, JDOMException
       {
-      return new XmlExpression(XmlHelper.createElement(inputStream));
+      return new XmlIpression(XmlHelper.createElement(inputStream));
       }
 
-   public static XmlExpression create(final File file) throws IOException, JDOMException
+   public static XmlIpression create(final File file) throws IOException, JDOMException
       {
       return create(new FileInputStream(file));
       }
 
-   /** Creates an <code>Expression</code> having the given {@link XmlService}. */
-   public static XmlExpression create(final XmlService service)
+   /** Creates an <code>Impression</code> having the given {@link XmlService}. */
+   public static XmlIpression create(final XmlService service)
       {
       final Set<XmlService> services = new HashSet<XmlService>(1);
       services.add(service);
-      return new XmlExpression(services);
+      return new XmlIpression(services);
       }
 
-   /** Creates an <code>Expression</code> having the given {@link XmlService}s. */
-   public static XmlExpression create(final Set<XmlService> services)
+   /** Creates an <code>Impression</code> having the given {@link XmlService}s. */
+   public static XmlIpression create(final Set<XmlService> services)
       {
-      return new XmlExpression(services);
+      return new XmlIpression(services);
       }
 
    private final Set<XmlService> services = new HashSet<XmlService>();
 
-   private XmlExpression(final Set<XmlService> services)
+   private XmlIpression(final Set<XmlService> services)
       {
       getElement().setName(ELEMENT_NAME);
       getElement().setAttribute(ATTR_VERSION, DEFAULT_VERSION);
@@ -76,7 +76,7 @@ public final class XmlExpression extends XmlObject
       addServices(services);
       }
 
-   private XmlExpression(final Element element)
+   private XmlIpression(final Element element)
       {
       super(element);
       final List serviceElements = getServicesElement().getChildren(XmlService.ELEMENT_NAME);
@@ -161,7 +161,7 @@ public final class XmlExpression extends XmlObject
          return false;
          }
 
-      final XmlExpression that = (XmlExpression)o;
+      final XmlIpression that = (XmlIpression)o;
 
       if (services != null ? !services.equals(that.services) : that.services != null)
          {

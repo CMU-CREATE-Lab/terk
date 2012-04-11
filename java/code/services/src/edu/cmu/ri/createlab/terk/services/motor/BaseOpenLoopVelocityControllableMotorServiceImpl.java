@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.expression.XmlDevice;
-import edu.cmu.ri.createlab.terk.expression.XmlOperation;
-import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
+import edu.cmu.ri.createlab.terk.xml.XmlParameter;
 import org.apache.log4j.Logger;
 
 /**
@@ -89,16 +89,20 @@ public abstract class BaseOpenLoopVelocityControllableMotorServiceImpl extends B
       }
 
    @Override
-   public final Object executeOperation(final XmlOperation operation)
+   public final Boolean executeExpressionOperation(final XmlOperation operation)
       {
-      if (OPERATION_NAME_SET_VELOCITY.equalsIgnoreCase(operation.getName()))
+      if (operation != null)
          {
-         return setVelocity(operation);
+         if (OPERATION_NAME_SET_VELOCITY.equalsIgnoreCase(operation.getName()))
+            {
+            return setVelocity(operation);
+            }
+         else
+            {
+            throw new UnsupportedOperationException();
+            }
          }
-      else
-         {
-         throw new UnsupportedOperationException();
-         }
+      return Boolean.FALSE;
       }
 
    private boolean setVelocity(final XmlOperation o)

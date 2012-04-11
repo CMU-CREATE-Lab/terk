@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.expression.XmlDevice;
-import edu.cmu.ri.createlab.terk.expression.XmlOperation;
-import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
+import edu.cmu.ri.createlab.terk.xml.XmlParameter;
 import org.apache.log4j.Logger;
 
 /**
@@ -59,20 +59,42 @@ public abstract class BaseFullColorLEDServiceImpl extends BaseDeviceControllingS
       return TYPE_ID;
       }
 
-   public final Object executeOperation(final XmlOperation operation)
+   @Override
+   public final Color[] executeExpressionOperation(final XmlOperation operation)
       {
-      if ("setColor".equalsIgnoreCase(operation.getName()))
+      if (operation != null)
          {
-         setColors(operation);
-         }
-      else
-         {
-         throw new UnsupportedOperationException();
+         if (OPERATION_NAME_SET_COLOR.equalsIgnoreCase(operation.getName()))
+            {
+            setColors(operation);
+            }
+         else
+            {
+            throw new UnsupportedOperationException();
+            }
          }
       return null;
       }
 
-   private void setColors(final XmlOperation o)
+   @Override
+   public final Color[] executeImpressionOperation(final XmlOperation operation)
+      {
+      if (operation != null)
+         {
+         if (OPERATION_NAME_GET_COLORS.equalsIgnoreCase(operation.getName()))
+            {
+            // return all values, ignoring specified devices
+            return getColors();
+            }
+         else
+            {
+            throw new UnsupportedOperationException("The operation [" + operation.getName() + "] is not supported.");
+            }
+         }
+      return null;
+      }
+
+   private Color[] setColors(final XmlOperation o)
       {
       final Set<XmlDevice> devices = o.getDevices();
       final Map<Integer, Color> data = new HashMap<Integer, Color>(devices.size() * 2);
@@ -101,10 +123,10 @@ public abstract class BaseFullColorLEDServiceImpl extends BaseDeviceControllingS
          data.put(d.getId(), new Color(red, green, blue));
          }
 
-      setColors(data);
+      return setColors(data);
       }
 
-   private void setColors(final Map<Integer, Color> data)
+   private Color[] setColors(final Map<Integer, Color> data)
       {
       final Set<Map.Entry<Integer, Color>> entries = data.entrySet();
 
@@ -124,7 +146,7 @@ public abstract class BaseFullColorLEDServiceImpl extends BaseDeviceControllingS
             }
          }
 
-      set(mask, values);
+      return set(mask, values);
       }
 
    public final void set(final int id, final Color color)

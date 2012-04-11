@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.expression.XmlDevice;
-import edu.cmu.ri.createlab.terk.expression.XmlOperation;
-import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.properties.PropertyManagerWrapper;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
+import edu.cmu.ri.createlab.terk.xml.XmlParameter;
 import org.apache.log4j.Logger;
 
 public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implements AudioService
@@ -44,8 +44,12 @@ public abstract class BaseAudioServiceImpl extends PropertyManagerWrapper implem
       return 1;
       }
 
+   /**
+    * Executes the given operation.  Note that this implementation will always return <code>null</code>, even upon
+    * successful execution.
+    */
    @Override
-   public final Object executeOperation(final XmlOperation o)
+   public final Object executeExpressionOperation(final XmlOperation o)
       {
       if (o != null)
          {

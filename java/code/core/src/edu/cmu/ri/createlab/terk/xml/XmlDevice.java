@@ -1,10 +1,9 @@
-package edu.cmu.ri.createlab.terk.expression;
+package edu.cmu.ri.createlab.terk.xml;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import edu.cmu.ri.createlab.xml.XmlObject;
@@ -62,9 +61,9 @@ public final class XmlDevice extends XmlObject
       final List parameterElements = element.getChildren(XmlParameter.ELEMENT_NAME);
       if ((parameterElements != null) && (!parameterElements.isEmpty()))
          {
-         for (final ListIterator listIterator = parameterElements.listIterator(); listIterator.hasNext();)
+         for (final Object parameterElementObj : parameterElements)
             {
-            final Element parameterElement = (Element)listIterator.next();
+            final Element parameterElement = (Element)parameterElementObj;
             parameters.add(new XmlParameter(parameterElement));
             }
          }
@@ -168,8 +167,7 @@ public final class XmlDevice extends XmlObject
 
    public int hashCode()
       {
-      int result;
-      result = id;
+      int result = id;
       result = 31 * result + (parameters != null ? parameters.hashCode() : 0);
       return result;
       }

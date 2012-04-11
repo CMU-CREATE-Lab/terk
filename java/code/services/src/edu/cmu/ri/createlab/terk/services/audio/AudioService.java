@@ -1,14 +1,14 @@
 package edu.cmu.ri.createlab.terk.services.audio;
 
+import edu.cmu.ri.createlab.terk.expression.ExpressionOperationExecutor;
 import edu.cmu.ri.createlab.terk.services.DeviceController;
 import edu.cmu.ri.createlab.terk.services.ExceptionHandler;
-import edu.cmu.ri.createlab.terk.services.OperationExecutor;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface AudioService extends Service, DeviceController, OperationExecutor
+public interface AudioService extends Service, DeviceController, ExpressionOperationExecutor
    {
    String TYPE_ID = "::TeRK::AudioController";
 
