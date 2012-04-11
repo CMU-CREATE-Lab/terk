@@ -12,8 +12,9 @@ import org.jdom.Element;
  */
 public final class XmlOperation extends XmlObject
    {
-   static final String ELEMENT_NAME = "operation";
-   private static final String ATTR_NAME = "name";
+   public static final String ELEMENT_NAME = "operation";
+   public static final String ATTR_NAME = "name";
+
    private final String name;
    private final Set<XmlDevice> devices = new HashSet<XmlDevice>();
 

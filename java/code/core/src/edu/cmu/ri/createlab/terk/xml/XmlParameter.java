@@ -13,8 +13,9 @@ public final class XmlParameter extends XmlObject
    {
    private static final Logger LOG = Logger.getLogger(XmlParameter.class);
 
-   static final String ELEMENT_NAME = "parameter";
-   private static final String ATTR_NAME = "name";
+   public static final String ELEMENT_NAME = "parameter";
+   public static final String ATTR_NAME = "name";
+
    private final String name;
    private final String value;
 
