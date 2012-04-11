@@ -1,9 +1,8 @@
-package edu.cmu.ri.createlab.terk.expression;
+package edu.cmu.ri.createlab.terk.xml;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 import edu.cmu.ri.createlab.xml.XmlObject;
 import org.jdom.Element;
@@ -52,9 +51,9 @@ public final class XmlOperation extends XmlObject
       final List deviceElements = element.getChildren(XmlDevice.ELEMENT_NAME);
       if ((deviceElements != null) && (!deviceElements.isEmpty()))
          {
-         for (final ListIterator listIterator = deviceElements.listIterator(); listIterator.hasNext();)
+         for (final Object deviceElementObj : deviceElements)
             {
-            final Element deviceElement = (Element)listIterator.next();
+            final Element deviceElement = (Element)deviceElementObj;
             devices.add(new XmlDevice(deviceElement));
             }
          }
@@ -128,8 +127,7 @@ public final class XmlOperation extends XmlObject
 
    public int hashCode()
       {
-      int result;
-      result = (name != null ? name.hashCode() : 0);
+      int result = (name != null ? name.hashCode() : 0);
       result = 31 * result + (devices != null ? devices.hashCode() : 0);
       return result;
       }

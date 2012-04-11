@@ -1,4 +1,4 @@
-package edu.cmu.ri.createlab.terk.expression;
+package edu.cmu.ri.createlab.terk.xml;
 
 import edu.cmu.ri.createlab.xml.XmlObject;
 import org.apache.log4j.Logger;
@@ -94,8 +94,7 @@ public final class XmlParameter extends XmlObject
 
    public int hashCode()
       {
-      int result;
-      result = (name != null ? name.hashCode() : 0);
+      int result = (name != null ? name.hashCode() : 0);
       result = 31 * result + (value != null ? value.hashCode() : 0);
       return result;
       }

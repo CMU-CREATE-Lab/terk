@@ -1,16 +1,22 @@
 package edu.cmu.ri.createlab.terk.services.thermistor;
 
+import edu.cmu.ri.createlab.terk.impression.ImpressionOperationExecutor;
 import edu.cmu.ri.createlab.terk.services.DeviceController;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface ThermistorService extends Service, DeviceController
+public interface ThermistorService extends Service, DeviceController, ImpressionOperationExecutor<Integer>
    {
    String TYPE_ID = "::TeRK::thermistor::ThermistorService";
 
+   String PROPERTY_NAME_MIN_VALUE = TYPE_ID + "::min-value";
+   String PROPERTY_NAME_MAX_VALUE = TYPE_ID + "::max-value";
+
    String PROPERTY_NAME_THERMISTOR_DEVICE_ID = TYPE_ID + "::thermistor-device-id";
+
+   String OPERATION_NAME_GET_THERMISTOR_VALUE = "getThermistorValue";
 
    /**
     * Returns the value of the thermistor specified by the given <code>id</code>.  Returns <code>null</code> if the 

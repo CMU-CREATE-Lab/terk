@@ -1,7 +1,10 @@
 package edu.cmu.ri.createlab.terk.services.thermistor;
 
+import java.util.Set;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
@@ -45,5 +48,31 @@ public abstract class BaseThermistorServiceImpl extends BaseDeviceControllingSer
    public final boolean isUnitConversionSupported()
       {
       return (unitConversionStrategy != null);
+      }
+
+   @Override
+   public final Integer executeImpressionOperation(final XmlOperation operation)
+      {
+      if (operation != null)
+         {
+         if (OPERATION_NAME_GET_THERMISTOR_VALUE.equalsIgnoreCase(operation.getName()))
+            {
+            // The operation is "getThermistorValue" (i.e. singular), so just get the first device
+            final Set<XmlDevice> devices = operation.getDevices();
+            if (devices != null && !devices.isEmpty())
+               {
+               final XmlDevice device = devices.iterator().next();
+               if (device != null)
+                  {
+                  return getThermistorValue(device.getId());
+                  }
+               }
+            }
+         else
+            {
+            throw new UnsupportedOperationException("The operation [" + operation.getName() + "] is not supported.");
+            }
+         }
+      return null;
       }
    }

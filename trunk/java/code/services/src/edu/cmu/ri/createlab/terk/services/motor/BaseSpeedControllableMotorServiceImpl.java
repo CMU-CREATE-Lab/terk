@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.expression.XmlDevice;
-import edu.cmu.ri.createlab.terk.expression.XmlOperation;
-import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
+import edu.cmu.ri.createlab.terk.xml.XmlParameter;
 import org.apache.log4j.Logger;
 
 /**
@@ -56,21 +56,43 @@ public abstract class BaseSpeedControllableMotorServiceImpl extends BaseDeviceCo
       return TYPE_ID;
       }
 
-   public final Object executeOperation(final XmlOperation operation)
+   @Override
+   public final int[] executeExpressionOperation(final XmlOperation operation)
       {
-      if (OPERATION_NAME_SET_SPEED.equalsIgnoreCase(operation.getName()))
+      if (operation != null)
          {
-         setSpeeds(operation);
-         }
-      else
-         {
-         throw new UnsupportedOperationException();
+         if (OPERATION_NAME_SET_SPEED.equalsIgnoreCase(operation.getName()))
+            {
+            return setSpeeds(operation);
+            }
+         else
+            {
+            throw new UnsupportedOperationException();
+            }
          }
 
       return null;
       }
 
-   private void setSpeeds(final XmlOperation o)
+   @Override
+   public final int[] executeImpressionOperation(final XmlOperation operation)
+      {
+      if (operation != null)
+         {
+         if (OPERATION_NAME_GET_SPEEDS.equalsIgnoreCase(operation.getName()))
+            {
+            // return all values, ignoring specified devices
+            return getSpeeds();
+            }
+         else
+            {
+            throw new UnsupportedOperationException("The operation [" + operation.getName() + "] is not supported.");
+            }
+         }
+      return null;
+      }
+
+   private int[] setSpeeds(final XmlOperation o)
       {
       final Set<XmlDevice> devices = o.getDevices();
       final Map<Integer, Integer> data = new HashMap<Integer, Integer>(devices.size() * 2);
@@ -89,10 +111,10 @@ public abstract class BaseSpeedControllableMotorServiceImpl extends BaseDeviceCo
          data.put(d.getId(), speed);
          }
 
-      setSpeeds(data);
+      return setSpeeds(data);
       }
 
-   private void setSpeeds(final Map<Integer, Integer> speedData)
+   private int[] setSpeeds(final Map<Integer, Integer> speedData)
       {
       final Set<Map.Entry<Integer, Integer>> entries = speedData.entrySet();
 
@@ -116,7 +138,7 @@ public abstract class BaseSpeedControllableMotorServiceImpl extends BaseDeviceCo
             }
          }
 
-      execute(mask, speeds);
+      return execute(mask, speeds);
       }
 
    public final void setSpeed(final int motorId, final int speed)

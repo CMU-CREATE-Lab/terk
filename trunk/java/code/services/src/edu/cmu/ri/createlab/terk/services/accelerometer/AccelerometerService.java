@@ -1,16 +1,19 @@
 package edu.cmu.ri.createlab.terk.services.accelerometer;
 
+import edu.cmu.ri.createlab.terk.impression.ImpressionOperationExecutor;
 import edu.cmu.ri.createlab.terk.services.DeviceController;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface AccelerometerService extends Service, DeviceController
+public interface AccelerometerService extends Service, DeviceController, ImpressionOperationExecutor<AccelerometerState>
    {
    String TYPE_ID = "::TeRK::accelerometer::AccelerometerService";
 
    String PROPERTY_NAME_ACCELEROMETER_DEVICE_ID = TYPE_ID + "::accelerometer-device-id";
+
+   String OPERATION_NAME_GET_ACCELEROMETER_STATE = "getAccelerometerState";
 
    /**
     * Returns the state of the accelerometer specified by the given <code>id</code>.  Returns <code>null</code> if the

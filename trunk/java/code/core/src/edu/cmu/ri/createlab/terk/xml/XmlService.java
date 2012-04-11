@@ -1,10 +1,9 @@
-package edu.cmu.ri.createlab.terk.expression;
+package edu.cmu.ri.createlab.terk.xml;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import edu.cmu.ri.createlab.xml.XmlObject;
 import org.jdom.Element;
 
@@ -13,7 +12,7 @@ import org.jdom.Element;
  */
 public final class XmlService extends XmlObject
    {
-   static final String ELEMENT_NAME = "service";
+   public static final String ELEMENT_NAME = "service";
    private static final String ATTR_TYPE_ID = "type-id";
    private final String typeId;
    private final List<XmlOperation> operations = new ArrayList<XmlOperation>();
@@ -35,7 +34,7 @@ public final class XmlService extends XmlObject
       addOperations(ops);
       }
 
-   XmlService(final Element element)
+   public XmlService(final Element element)
       {
       super(element);
       this.typeId = element.getAttributeValue(ATTR_TYPE_ID);
@@ -43,9 +42,9 @@ public final class XmlService extends XmlObject
       final List opElements = element.getChildren(XmlOperation.ELEMENT_NAME);
       if ((opElements != null) && (!opElements.isEmpty()))
          {
-         for (final ListIterator listIterator = opElements.listIterator(); listIterator.hasNext();)
+         for (final Object opElementObj : opElements)
             {
-            final Element opElement = (Element)listIterator.next();
+            final Element opElement = (Element)opElementObj;
             operations.add(new XmlOperation(opElement));
             }
          }
@@ -128,8 +127,7 @@ public final class XmlService extends XmlObject
 
    public int hashCode()
       {
-      int result;
-      result = (typeId != null ? typeId.hashCode() : 0);
+      int result = (typeId != null ? typeId.hashCode() : 0);
       result = 31 * result + (operations != null ? operations.hashCode() : 0);
       return result;
       }

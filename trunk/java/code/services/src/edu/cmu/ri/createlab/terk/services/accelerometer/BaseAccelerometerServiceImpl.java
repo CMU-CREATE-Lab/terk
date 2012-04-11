@@ -1,7 +1,10 @@
 package edu.cmu.ri.createlab.terk.services.accelerometer;
 
+import java.util.Set;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
@@ -50,5 +53,31 @@ public abstract class BaseAccelerometerServiceImpl extends BaseDeviceControlling
    public final AccelerometerUnitConversionStrategy getAccelerometerUnitConversionStrategy()
       {
       return unitConversionStrategy;
+      }
+
+   @Override
+   public final AccelerometerState executeImpressionOperation(final XmlOperation operation)
+      {
+      if (operation != null)
+         {
+         if (OPERATION_NAME_GET_ACCELEROMETER_STATE.equalsIgnoreCase(operation.getName()))
+            {
+            // The operation is "getAccelerometerState" (i.e. singular), so just get the first device
+            final Set<XmlDevice> devices = operation.getDevices();
+            if (devices != null && !devices.isEmpty())
+               {
+               final XmlDevice device = devices.iterator().next();
+               if (device != null)
+                  {
+                  return getAccelerometerState(device.getId());
+                  }
+               }
+            }
+         else
+            {
+            throw new UnsupportedOperationException("The operation [" + operation.getName() + "] is not supported.");
+            }
+         }
+      return null;
       }
    }

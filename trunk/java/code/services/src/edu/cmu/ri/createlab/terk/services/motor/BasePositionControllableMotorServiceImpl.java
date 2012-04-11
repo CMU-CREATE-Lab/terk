@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.expression.XmlDevice;
-import edu.cmu.ri.createlab.terk.expression.XmlOperation;
-import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
+import edu.cmu.ri.createlab.terk.xml.XmlParameter;
 import org.apache.log4j.Logger;
 
 /**
@@ -55,17 +55,24 @@ public abstract class BasePositionControllableMotorServiceImpl extends BaseDevic
       return TYPE_ID;
       }
 
-   public final Object executeOperation(final XmlOperation operation)
+   /**
+    * Executes the given operation.  Note that this implementation will always return <code>null</code>, even upon
+    * successful execution.
+    */
+   @Override
+   public final Object executeExpressionOperation(final XmlOperation operation)
       {
-      if (OPERATION_NAME_SET_POSITION.equalsIgnoreCase(operation.getName()))
+      if (operation != null)
          {
-         setPosition(operation);
+         if (OPERATION_NAME_SET_POSITION.equalsIgnoreCase(operation.getName()))
+            {
+            setPosition(operation);
+            }
+         else
+            {
+            throw new UnsupportedOperationException();
+            }
          }
-      else
-         {
-         throw new UnsupportedOperationException();
-         }
-
       return null;
       }
 

@@ -1,13 +1,13 @@
 package edu.cmu.ri.createlab.terk.services.motor;
 
+import edu.cmu.ri.createlab.terk.expression.ExpressionOperationExecutor;
 import edu.cmu.ri.createlab.terk.services.DeviceController;
-import edu.cmu.ri.createlab.terk.services.OperationExecutor;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface OpenLoopVelocityControllableMotorService extends Service, DeviceController, OperationExecutor
+public interface OpenLoopVelocityControllableMotorService extends Service, DeviceController, ExpressionOperationExecutor<Boolean>
    {
    String TYPE_ID = "::TeRK::motor::OpenLoopVelocityControllableMotorService";
 

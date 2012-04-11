@@ -1,13 +1,14 @@
 package edu.cmu.ri.createlab.terk.services.motor;
 
+import edu.cmu.ri.createlab.terk.expression.ExpressionOperationExecutor;
+import edu.cmu.ri.createlab.terk.impression.ImpressionOperationExecutor;
 import edu.cmu.ri.createlab.terk.services.DeviceController;
-import edu.cmu.ri.createlab.terk.services.OperationExecutor;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface VelocityControllableMotorService extends Service, DeviceController, OperationExecutor
+public interface VelocityControllableMotorService extends Service, DeviceController, ExpressionOperationExecutor<int[]>, ImpressionOperationExecutor<int[]>
    {
    String TYPE_ID = "::TeRK::motor::VelocityControllableMotorService";
 
@@ -15,6 +16,8 @@ public interface VelocityControllableMotorService extends Service, DeviceControl
 
    String OPERATION_NAME_SET_VELOCITY = "setVelocity";
    String PARAMETER_NAME_VELOCITY = "velocity";
+
+   String OPERATION_NAME_GET_VELOCITIES = "getVelocities";
 
    String PROPERTY_NAME_MIN_VELOCITY = TYPE_ID + "::min-velocity";
    String PROPERTY_NAME_MAX_VELOCITY = TYPE_ID + "::max-velocity";

@@ -2,11 +2,11 @@ package edu.cmu.ri.createlab.terk.services.buzzer;
 
 import java.util.Map;
 import java.util.Set;
-import edu.cmu.ri.createlab.terk.expression.XmlDevice;
-import edu.cmu.ri.createlab.terk.expression.XmlOperation;
-import edu.cmu.ri.createlab.terk.expression.XmlParameter;
 import edu.cmu.ri.createlab.terk.properties.PropertyManager;
 import edu.cmu.ri.createlab.terk.services.BaseDeviceControllingService;
+import edu.cmu.ri.createlab.terk.xml.XmlDevice;
+import edu.cmu.ri.createlab.terk.xml.XmlOperation;
+import edu.cmu.ri.createlab.terk.xml.XmlParameter;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
@@ -23,37 +23,45 @@ public abstract class BaseBuzzerServiceImpl extends BaseDeviceControllingService
       return TYPE_ID;
       }
 
-   public final Object executeOperation(final XmlOperation operation)
+   @Override
+   public final Boolean executeExpressionOperation(final XmlOperation operation)
       {
-      if (operation != null && OPERATION_NAME_PLAY_TONE.equals(operation.getName()))
+      if (operation != null)
          {
-         final Set<XmlDevice> xmlDevices = operation.getDevices();
-         if ((xmlDevices != null) && (!xmlDevices.isEmpty()))
+         if (OPERATION_NAME_PLAY_TONE.equalsIgnoreCase(operation.getName()))
             {
-            for (final XmlDevice xmlDevice : xmlDevices)
+            final Set<XmlDevice> xmlDevices = operation.getDevices();
+            if ((xmlDevices != null) && (!xmlDevices.isEmpty()))
                {
-               if (xmlDevice != null)
+               for (final XmlDevice xmlDevice : xmlDevices)
                   {
-                  final Map<String, XmlParameter> parametersMap = xmlDevice.getParametersAsMap();
-                  if (parametersMap != null)
+                  if (xmlDevice != null)
                      {
-                     final XmlParameter frequencyParameter = parametersMap.get(PARAMETER_NAME_FREQUENCY);
-                     final XmlParameter durationParameter = parametersMap.get(PARAMETER_NAME_DURATION);
-                     if (frequencyParameter != null && durationParameter != null)
+                     final Map<String, XmlParameter> parametersMap = xmlDevice.getParametersAsMap();
+                     if (parametersMap != null)
                         {
-                        final Integer freq = frequencyParameter.getValueAsInteger();
-                        final Integer dur = durationParameter.getValueAsInteger();
-                        if (freq != null && dur != null)
+                        final XmlParameter frequencyParameter = parametersMap.get(PARAMETER_NAME_FREQUENCY);
+                        final XmlParameter durationParameter = parametersMap.get(PARAMETER_NAME_DURATION);
+                        if (frequencyParameter != null && durationParameter != null)
                            {
-                           playTone(xmlDevice.getId(), freq, dur);
+                           final Integer freq = frequencyParameter.getValueAsInteger();
+                           final Integer dur = durationParameter.getValueAsInteger();
+                           if (freq != null && dur != null)
+                              {
+                              playTone(xmlDevice.getId(), freq, dur);
+                              return Boolean.TRUE;
+                              }
                            }
                         }
                      }
                   }
                }
             }
+         else
+            {
+            throw new UnsupportedOperationException("The operation [" + operation.getName() + "] is not supported.");
+            }
          }
-
-      return null;
+      return Boolean.FALSE;
       }
    }

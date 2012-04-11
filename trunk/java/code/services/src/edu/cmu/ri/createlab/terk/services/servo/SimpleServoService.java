@@ -1,18 +1,21 @@
 package edu.cmu.ri.createlab.terk.services.servo;
 
+import edu.cmu.ri.createlab.terk.expression.ExpressionOperationExecutor;
+import edu.cmu.ri.createlab.terk.impression.ImpressionOperationExecutor;
 import edu.cmu.ri.createlab.terk.services.DeviceController;
-import edu.cmu.ri.createlab.terk.services.OperationExecutor;
 import edu.cmu.ri.createlab.terk.services.Service;
 
 /**
  * @author Chris Bartley (bartley@cmu.edu)
  */
-public interface SimpleServoService extends Service, DeviceController, OperationExecutor
+public interface SimpleServoService extends Service, DeviceController, ExpressionOperationExecutor<int[]>, ImpressionOperationExecutor<int[]>
    {
    String TYPE_ID = "::TeRK::servo::SimpleServoService";
 
    String OPERATION_NAME_SET_POSITION = "setPosition";
    String PARAMETER_NAME_POSITION = "position";
+
+   String OPERATION_NAME_GET_POSITIONS = "getPositions";
 
    String PROPERTY_NAME_MIN_POSITION = TYPE_ID + "::min-position";
    String PROPERTY_NAME_MAX_POSITION = TYPE_ID + "::max-position";
