@@ -55,8 +55,14 @@ public abstract class BaseAccelerometerServiceImpl extends BaseDeviceControlling
       return unitConversionStrategy;
       }
 
+   /**
+    * Returns an {@link AccelerometerState} if the {@link XmlOperation#getName()} operation name} is
+    * {@link #OPERATION_NAME_GET_ACCELEROMETER_STATE} and return an {@link AccelerometerGs} if the
+    * {@link XmlOperation#getName()} operation name} is {@link #OPERATION_NAME_GET_ACCELEROMETER_GS}.
+    * Throws an {@link UnsupportedOperationException} for any other operation name.
+    */
    @Override
-   public final AccelerometerState executeImpressionOperation(final XmlOperation operation)
+   public final Object executeImpressionOperation(final XmlOperation operation)
       {
       if (operation != null)
          {
@@ -70,6 +76,19 @@ public abstract class BaseAccelerometerServiceImpl extends BaseDeviceControlling
                if (device != null)
                   {
                   return getAccelerometerState(device.getId());
+                  }
+               }
+            }
+         else if (OPERATION_NAME_GET_ACCELEROMETER_GS.equalsIgnoreCase(operation.getName()))
+            {
+            // The operation is "getAccelerometerGs" (i.e. singular), so just get the first device
+            final Set<XmlDevice> devices = operation.getDevices();
+            if (devices != null && !devices.isEmpty())
+               {
+               final XmlDevice device = devices.iterator().next();
+               if (device != null)
+                  {
+                  return getAccelerometerGs(device.getId());
                   }
                }
             }
