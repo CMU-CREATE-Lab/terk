@@ -45,6 +45,18 @@ public final class AccelerometerUnitConversionStrategyFreescaleMMA7660FC impleme
       return DEVICE_ID;
       }
 
+   @Override
+   public double getMinGs()
+      {
+      return MIN_G;
+      }
+
+   @Override
+   public double getMaxGs()
+      {
+      return MAX_G;
+      }
+
    /**
     * Converts the native values in the given {@link AccelerometerState} to Gs.  Native values which are less than
     * {@link #MIN_NATIVE_VALUE} will be mapped to {@link #MIN_G} and native values which are greater than

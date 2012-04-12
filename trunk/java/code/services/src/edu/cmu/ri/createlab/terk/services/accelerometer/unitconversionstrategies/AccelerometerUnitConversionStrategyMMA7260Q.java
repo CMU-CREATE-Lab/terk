@@ -25,8 +25,8 @@ public final class AccelerometerUnitConversionStrategyMMA7260Q implements Accele
    private static final double MULTIPLIER = 2.0625 / (double)NATIVE_VALUE_MIDPOINT;
 
    // the accelerometer caps at +- 1.5 g
-   private static final double MAX_G = 1.5;
    private static final double MIN_G = -1.5;
+   private static final double MAX_G = 1.5;
 
    public static AccelerometerUnitConversionStrategyMMA7260Q getInstance()
       {
@@ -41,6 +41,18 @@ public final class AccelerometerUnitConversionStrategyMMA7260Q implements Accele
    public String getDeviceId()
       {
       return DEVICE_ID;
+      }
+
+   @Override
+   public double getMinGs()
+      {
+      return MIN_G;
+      }
+
+   @Override
+   public double getMaxGs()
+      {
+      return MAX_G;
       }
 
    public AccelerometerGs convert(final AccelerometerState accelerometerState)
