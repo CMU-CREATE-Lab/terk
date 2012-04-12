@@ -11,6 +11,12 @@ import edu.cmu.ri.createlab.terk.services.UnitConversionStrategy;
  */
 public interface AccelerometerUnitConversionStrategy extends UnitConversionStrategy
    {
+   /** Returns the minimum g value supported by this accelerometer. */
+   double getMinGs();
+
+   /** Returns the maximum g value supported by this accelerometer. */
+   double getMaxGs();
+
    /**
     * Converts the given {@link AccelerometerState} to {@link AccelerometerGs}. Returns <code>null</code> if the given
     * {@link AccelerometerState} is <code>null</code>.
