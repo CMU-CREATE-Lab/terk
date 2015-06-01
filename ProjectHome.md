@@ -1,0 +1,1 @@
+This project is home to the TeRK robot architecture and desktop applications.
