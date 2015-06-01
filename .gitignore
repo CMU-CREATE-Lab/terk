@@ -1,0 +1,7 @@
+.DS_Store
+*.iws
+
+java/code/core/build
+java/code/core/dist
+java/code/services/build
+java/code/services/dist
